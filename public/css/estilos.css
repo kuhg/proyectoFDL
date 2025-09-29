@@ -1,0 +1,280 @@
+.icon-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+.icon-circle:hover {
+  transform: scale(1.1);
+}
+
+.blanco-transparente{
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 15px; 
+}
+
+.fondo-dibujo{
+  background-image: url("../img/ilustracionJardin3.jpg");
+  background-repeat: no-repeat;   
+  background-size: cover;         
+  background-position: center;    
+  background-attachment: fixed;   
+  transition: ease-out;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  
+}
+
+.div-con-padding {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.amarillo{
+    background-color: #fcd03c;
+    width: 100%;
+}
+
+.navbar {
+  padding-bottom: 30px;
+  font-size: 1.1rem; 
+}
+
+footer {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  font-size: 1.1rem;
+}
+
+.img-box {
+  overflow: hidden;
+  border-radius: 0.5rem;
+}
+.img-box img {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.img-box:hover img {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+}
+
+.imagen-perfil-grande {
+  width: 125px;       
+  height: 125px;      
+  object-fit: cover;  
+  border-radius: 50%; 
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3); 
+}
+
+.texto-grande {
+  font-size: 1.2rem;         
+}
+
+.texto-grande-titulo {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.select-crear-usuario {
+  background-color: #fcd03c; 
+  color: #000000;
+  border: none;
+  border-radius: 50px;       
+  padding: 10px 20px;        
+  font-size: 1.1rem;         
+  appearance: none; 
+  cursor: pointer;
+}
+
+.select-crear-usuario:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(252, 208, 60, 0.5); /* efecto similar a hover en botones */
+}
+/* BOTONES CHICOS */
+.boton-rojo-chico {
+  background-color: #dc3545;
+  color: #ffffff;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  width: 120px;       /* ancho fijo */
+  height: 40px;       /* alto fijo */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;         /* mantiene tamaño fijo */
+}
+.boton-rojo-chico:hover {
+  background-color: #bb2d3b;
+}
+
+.boton-verde-chico {
+  background-color: #28a745;
+  color: #ffffff;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  width: 120px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.boton-verde-chico:hover {
+  background-color: #218838;
+}
+
+.boton-amarillo-chico {
+  background-color: #fcd03c;
+  color: #000000;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  width: 120px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.boton-amarillo-chico:hover {
+  background-color: #ffcd2a;
+}
+
+.boton-gris-chico {
+  background-color: #a8a8a8;
+  color: #000000;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  width: 120px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.boton-gris-chico:hover {
+  background-color: #8e8e8e;
+}
+
+/* BOTONES GRANDES */
+.boton-rojo {
+  background-color: #dc3545;
+  color: #ffffff;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  width: 160px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.boton-rojo:hover {
+  background-color: #bb2d3b;
+}
+
+.boton-verde {
+  background-color: #28a745;
+  color: #ffffff;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  width: 160px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.boton-verde:hover {
+  background-color: #218838;
+}
+
+.boton-amarillo {
+  background-color: #fcd03c;
+  color: #000000;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  width: 160px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.boton-amarillo:hover {
+  background-color: #ffcd2a;
+}
+
+.boton-gris {
+  background-color: #a8a8a8;
+  color: #000000;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  width: 160px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.boton-gris:hover {
+  background-color: #8e8e8e;
+}
+
+/* Icono + texto: margen pequeño */
+.boton-rojo i,
+.boton-verde i,
+.boton-amarillo i,
+.boton-gris i,
+.boton-rojo-chico i,
+.boton-verde-chico i,
+.boton-amarillo-chico i,
+.boton-gris-chico i {
+  margin-right: 5px;
+}
+
+.boton-rojo, .boton-verde, .boton-amarillo, .boton-gris,
+.boton-rojo-chico, .boton-verde-chico, .boton-amarillo-chico, .boton-gris-chico {
+  width: 160px; 
+  height: 50px;   
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  padding: 0 10px;   
+  white-space: nowrap;    
+  overflow: hidden;       
+  text-overflow: ellipsis; 
+}
+
+/* Acordeon */
+.accordion-button {
+  background-color: #fce473; 
+  color: #333;
+}
+
+
+.accordion-button:not(.collapsed) {
+  background-color: #f9d23c; 
+  color: #000;
+}
+
+
+.accordion-body {
+  background-color: #fff8dc;
+}
