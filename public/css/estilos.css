@@ -1,3 +1,7 @@
+@view-transition{
+  navigation: auto;
+}
+
 .icon-circle {
   width: 80px;
   height: 80px;
@@ -11,9 +15,99 @@
   transform: scale(1.1);
 }
 
-.blanco-transparente{
+.blanco-transparente {
   background-color: rgba(255, 255, 255, 0.7);
   border-radius: 15px; 
+  padding: 30px 50px;
+  opacity: 0; /* empieza invisible */
+  transform: translateY(30px); /* leve desplazamiento hacia abajo */
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+/* masorny*/
+.grid-item img {
+  width: 40%;      /* 🔸 achica la imagen al 80% del ancho del contenedor */
+  height: auto;     /* mantiene la proporción */
+  display: block;   /* elimina espacios blancos debajo */
+  margin: 0 auto;   /* centra la imagen */
+  border-radius: 10px;
+}
+.grid {
+  margin: 0 auto;
+}
+
+.grid-sizer,
+.grid-item {
+  width: 30%; /* tres columnas */
+}
+
+.grid-item {
+  margin-bottom: 15px;
+}
+
+.grid-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+}
+
+@media (max-width: 992px) {
+  .grid-sizer,
+  .grid-item {
+    width: 45%; /* dos columnas */
+  }
+}
+@media (max-width: 576px) {
+  .grid-sizer,
+  .grid-item {
+    width: 100%; /* una columna */
+  }
+}
+/* masorny fin*/
+.formulario-publicacion{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
+  padding: 30px 50px;
+}
+/*boton flotante*/
+  .btn-flotante {
+  position: fixed;
+  bottom: 20px;         /* distancia desde abajo */
+  right: 20px;          /* distancia desde la derecha */
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #ffc107;  /* color amarillo tipo Bootstrap warning */
+  color: #fff;
+  font-size: 2rem;
+  font-weight: bold;
+  border: none;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+  z-index: 9999;
+}
+
+.btn-flotante:hover {
+  background-color: #ffca2c;
+  transform: scale(1.1);
+}
+/*boton flotante fin*/
+.blanco-transparente.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.imagen-zoom {
+  transition: transform 0.4s ease, filter 0.4s ease, box-shadow 0.4s ease;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.imagen-zoom:hover {
+  transform: scale(1.1);         
+  filter: brightness(1.1);       
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); 
 }
 
 .fondo-dibujo{
@@ -277,4 +371,30 @@ footer {
 
 .accordion-body {
   background-color: #fff8dc;
+}
+
+
+/* texto publicacion */
+.titulo-seccion {
+  font-size: 1.8rem; 
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+}
+
+.texto-principal {
+  font-size: 1.05rem; 
+  line-height: 1.6;
+  color: #444;
+}
+
+.texto-tarjeta {
+  font-size: 0.95rem; 
+  line-height: 1.5;
+  color: #555;
+}
+
+.texto-pequeño {
+  font-size: 0.85rem;
+  color: #777;
 }

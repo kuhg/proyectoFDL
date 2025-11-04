@@ -17,57 +17,134 @@
 
   <div class="container my-5 w-50">
     <h1 class="text-center mb-4">Cargar usuario nuevo</h1>
+    
+    <?= view('partials/errores')?>
+    <?php
+      echo form_open('form/crearUsuario', [
+          'id' => 'formProyecto',
+          'enctype' => 'multipart/form-data',
+          'class' => 'needs-validation',
+          'novalidate' => true
+      ]);
 
-    <form id="formProyecto" enctype="multipart/form-data" method="POST" action="ruta_backend.php" class="needs-validation" novalidate>
-      <div class="mb-3">
-        <label for="nombreUsuario" class="form-label">Nombre del usuario</label>
-        <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" required>
-        <div class="invalid-feedback">Esta casilla esta vacia</div>
-      </div>
+      // Nombre del usuario
+      echo form_label('Nombre del usuario: ', 'nombreUsuario');
+      echo form_input([
+          'type' => 'text',
+          'name' => 'nombreUsuario',
+          'id' => 'nombreUsuario',
+          'class' => 'form-control',
+          'required' => true
+      ]);
+      echo '<div class="invalid-feedback">Esta casilla está vacía</div><br>';
 
-      <div class="mb-3">
-        <label for="apellidoUsuario" class="form-label">Apellido del usuario</label>
-        <input type="text" class="form-control" id="apellidoUsuario" name="apellidoUsuario" required>
-        <div class="invalid-feedback">Esta casilla esta vacia</div>
-      </div>
+      // Apellido del usuario
+      echo form_label('Apellido del usuario: ', 'apellidoUsuario');
+      echo form_input([
+          'type' => 'text',
+          'name' => 'apellidoUsuario',
+          'id' => 'apellidoUsuario',
+          'class' => 'form-control',
+          'required' => true
+      ]);
+      echo '<div class="invalid-feedback">Esta casilla está vacía</div><br>';
 
-      <div class="mb-3">
-        <label for="correoUsuario" class="form-label">Correo del usuario</label>
-        <input type="email" class="form-control" id="correoUsuario" name="correoUsuario" required>
-        <div class="invalid-feedback">Esta casilla esta vacia</div>
-      </div>
+      // Correo del usuario
+      echo form_label('Correo del usuario: ', 'correoUsuario');
+      echo form_input([
+          'type' => 'email',
+          'name' => 'correoUsuario',
+          'id' => 'correoUsuario',
+          'class' => 'form-control',
+          'required' => true
+      ]);
+      echo '<div class="invalid-feedback">Esta casilla está vacía</div><br>';
 
-      <div class="mb-3">
-        <label for="documentoUsuario" class="form-label">Documento del usuario</label>
-        <input type="text" class="form-control" id="documentoUsuario" name="documentoUsuario" required>
-        <div class="invalid-feedback">Esta casilla esta vacia</div>
-      </div>
-      
-      <div class="mb-3">
-        <label for="contraseniaUsuario" class="form-label">Contraseña</label>
-        <input type="password" class="form-control" id="contraseniaUsuario" name="contraseniaUsuario" required>
-        <div class="invalid-feedback">Esta casilla esta vacia</div>
-      </div>
-      <div class="mb-3">
-        <label for="contraseniaVerificacionUsuario" class="form-label">Ingrese otra vez la contraseña</label>
-        <input type="password" class="form-control" id="contraseniaVerificacionUsuario" name="contraseniaVerificacionUsuario" required>
-        <div class="invalid-feedback">Esta casilla esta vacia</div>
-      </div>
+      // Documento del usuario
+      echo form_label('Documento del usuario: ', 'documentoUsuario');
+      echo form_input([
+          'type' => 'number',
+          'name' => 'documentoUsuario',
+          'id' => 'documentoUsuario',
+          'class' => 'form-control',
+          'required' => true
+      ]);
+      echo '<div class="invalid-feedback">Esta casilla está vacía</div><br>';
+      //direccion
+      echo form_label('Direccion del usuario: ', 'direccionUsuario');
+      echo form_input([
+          'name' => 'direccionUsuario',
+          'id' => 'direccionUsuario',
+          'class' => 'form-control',
+          'required' => true
+      ]);
+      echo '<div class="invalid-feedback">Esta casilla está vacía</div><br>';
+      //telefono de contacto
+      echo form_label('Contacto del usuario: ', 'contactoUsuario');
+      echo form_input([
+          'type' => 'number',
+          'name' => 'contactoUsuario',
+          'id' => 'contactoUsuario',
+          'class' => 'form-control',
+          'required' => true
+      ]);
+      echo '<div class="invalid-feedback">Esta casilla está vacía</div><br>';
+      //contacto de urgencia
+      echo form_label('Contacto de urgencia: ', 'contactoUrgenciaUsuario');
+      echo form_input([
+          'type' => 'number',
+          'name' => 'contactoUrgenciaUsuario',
+          'id' => 'contactoUrgenciaUsuario',
+          'class' => 'form-control',
+          'required' => true
+      ]);
+      echo '<div class="invalid-feedback">Esta casilla está vacía</div><br>';
 
-      <div class="mb-3">
-        <label for="permiso" class="form-label">Tipo de permiso</label>
-        <select class="select-crear-usuario" name="permiso" id="permiso">
-            <option value="1">Administrador</option>
-            <option value="0">No administrador</option>
-        </select>
-      </div><br>
+      // Contraseña
+      echo form_label('Contraseña: ', 'contraseniaUsuario');
+      echo form_password([
+          'name' => 'contraseniaUsuario',
+          'id' => 'contraseniaUsuario',
+          'class' => 'form-control',
+          'required' => true
+      ]);
+      echo '<div class="invalid-feedback">Esta casilla está vacía</div><br>';
 
-      <!-- Botones -->
-      <div class="d-flex gap-2 mt-3">
-        <button class="boton-amarillo" type="submit">Crear el usuario</button>
-        <button class="boton-gris" type="reset">Limpiar</button>
-      </div>
-    </form>
+      // Verificación de contraseña
+      echo form_label('Ingrese otra vez la contraseña: ', 'contraseniaVerificacionUsuario');
+      echo form_password([
+          'name' => 'contraseniaVerificacionUsuario',
+          'id' => 'contraseniaVerificacionUsuario',
+          'class' => 'form-control',
+          'required' => true
+      ]);
+      echo '<div class="invalid-feedback">Esta casilla está vacía</div><br>';
+      // Tipo de permiso
+      echo form_label('Tipo de permiso: ', 'permiso');
+      echo form_dropdown(
+          'permiso',
+          [
+              '0' => 'Tutor',
+              '1' => 'Administrador',
+              '2' => 'Moderador',
+              '3' => 'Editor'
+          ],
+          '',
+          [
+              'id' => 'permiso',
+              'class' => 'select-crear-usuario form-control'
+          ]
+      );
+      echo '<br><br>';
+
+      // Botones
+      echo '<div class="d-flex gap-2 mt-3">';
+      echo form_submit('enviar', 'Crear el usuario', ['class' => 'boton-amarillo']);
+      echo form_reset('reset', 'Limpiar', ['class' => 'boton-gris']);
+      echo '</div>';
+
+      echo form_close();
+      ?>
   </div>
 
     <?= view('partials/footer')?>

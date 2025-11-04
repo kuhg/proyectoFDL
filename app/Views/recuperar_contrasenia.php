@@ -19,21 +19,33 @@
       <div class="text-center mb-4">
         <h2 class="mt-2">Recuperar contraseña</h2>
         <p class="text-muted">Ingresa tu correo electrónico y te enviaremos un enlace para restablecerla.</p>
+        <?= view('partials/errores')?>
       </div>
 
       <!-- Formulario -->
-      <form id="recoverForm" method="post" action="">
+       <?php echo form_open('form/recuperarContrasenia'); ?>
         <div class="mb-3">
-          <label for="email" class="form-label">Correo electrónico</label>
-          <input type="email" class="form-control" id="email" name="email"
-                 placeholder="tuemail@ejemplo.com" required>
-        </div>
+          <?php echo form_label('Correo: ','email', ['class'=>'form-label']); ?>
+          <?php echo form_input([
+                'type' => 'email',
+                'placeholder'=>'tuemail@ejemplo.com',
+                'name' => 'email',
+                'id' => 'email',
+                'class' => 'form-control',
+                'required' => true
+            ]);;
+          ?>
+          <br>
         <div class="d-flex justify-content-center">
-            <button type="submit" class="boton-amarillo">
-                <i class="bi bi-envelope"></i> Enviar enlace
-            </button>
+          <?php echo form_button([
+                'name' => 'enviar',
+                'type' => 'submit',
+                'content' => '<i class="bi bi-envelope"></i> Enviar enlace',
+                'class' => 'boton-amarillo'
+            ]);
+          ?>
         </div>
-      </form>
+      <?php echo form_close(); ?>
 
       <div class="text-center mt-3">
         <a href="/login" class="text-decoration-none">Volver al inicio de sesión</a>

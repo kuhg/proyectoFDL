@@ -19,19 +19,24 @@
 <body class="bg-light">
   <div class="container my-5 w-50">
     <h1 class="text-center mb-4">Cambiar Foto</h1>
+    <?= view('partials/errores')?>
 
-    <form id="formProyecto" enctype="multipart/form-data" method="POST" action="ruta_backend.php" class="needs-validation" novalidate>
-      
-      <div class="mb-3">
-        <label for="fotoPerfil" class="form-label">Foto de perfil</label>
-        <input class="form-control" type="file" id="fotoPerfil" name="fotoPerfil">
-      </div><br>
-
-      <div class="d-flex gap-2 mt-3 justify-content-center">
-        <button class="boton-amarillo" type="submit">Actualizar perfil</button>
-        <button class="boton-gris" type="reset">Limpiar</button>
-      </div>
-    </form><br>
+    <?php
+    echo form_open_multipart('form/actualizarFoto', ['class'=>'needs-validation']);
+    echo form_label('Foto de perfil', 'imagen');
+    echo form_upload([
+        'name' => 'imagen',
+        'id' => 'imagen',
+        'class' => 'form-control',
+        'accept' => 'image/*',
+        'required' => true
+    ]);
+    echo "<br>";
+    echo form_submit('subir','Actualizar foto',['class'=>'boton-amarillo']);
+    echo form_close();
+    ?>
+    <br>
+    
     <div class="d-grid gap-2">
      <a href="<?= base_url('index.php/CambiarContrasenia') ?>">Cambiar contraseña</a>
     </div>

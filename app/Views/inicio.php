@@ -98,55 +98,77 @@
     </div>
 
     <div>
-        <div class=" div-con-padding container my-5 ">
-            <h2 class="text-center mb-4">Ultimos Proyectos</h2><br><br>
-            <div class="row g-4">
+        <div class="div-con-padding  container my-5">
+            <h2 class="text-center mb-4">Últimos Proyectos</h2>
+            <br><br>
 
+            <div class="row justify-content-center g-4">
+                <?php if (!empty($publicaciones)): ?>
+                    <?php foreach ($publicaciones as $publicacion): ?>
+                        <div class="col-md-3 d-flex">
+                            <div class="card h-100">
+                                <?php if (!empty($imagenes[$publicacion['idPublicacion']]['rutaImagen'])): ?>
+                                    <img src="<?= base_url( 'public/'.esc($imagenes[$publicacion['idPublicacion']]['rutaImagen'])) ?>" 
+                                        class="card-img-top object-fit-cover" 
+                                        alt="<?= esc($publicacion['tituloPublicacion']) ?>">
+                                <?php else: ?>
+                                    <img src="<?= base_url('public/img/sample.jpeg')?>" 
+                                        class="card-img-top object-fit-cover" 
+                                        alt="Sin imagen">
+                                <?php endif; ?>
 
-                <div class="col-md-4">
-                <div class="card h-100">
-                    <img src="../public/img/sample.jpg" class="card-img-top" alt="Noticia 1">
-                    <div class="card-body">
-                    <h5 class="card-title">Título proyecto 1</h5>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    <button class="boton-amarillo">Leer más</button>
-                    </div>
-                </div>
-                </div>
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title"><?= esc($publicacion['tituloPublicacion']) ?></h5>
+                                    <p class="card-text text-truncate"><?= esc($publicacion['fechaPublicacion']) ?></p>
 
-                <div class="col-md-4">
-                <div class="card h-100">
-                    <img src="../public/img/sample.jpg" class="card-img-top" alt="Noticia 2">
-                    <div class="card-body">
-                    <h5 class="card-title">Título proyecto 2</h5>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    <button class="boton-amarillo">Leer más</button>
-                    </div>
-                </div>
-                </div>
-
-
-                <div class="col-md-4">
-                <div class="card h-100">
-                    <img src="../public/img/sample.jpg" class="card-img-top" alt="Noticia 3">
-                    <div class="card-body">
-                    <h5 class="card-title">Título Noticia 3</h5>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    <button class="boton-amarillo">Leer más</button>
-                    </div>
-                </div>
-                </div>
-
+                                    <div class="mt-auto">
+                                        <a href="<?= base_url('index.php/Publicacion/' . $publicacion['idPublicacion']) ?>" 
+                                        class="boton-amarillo w-100">
+                                        Leer más
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p class="text-center">No hay proyectos disponibles por el momento.</p>
+                <?php endif; ?>
             </div>
         </div>
     </div>
 
-    <div class="blanco-transparente div-con-padding d-flex justify-content-center align-items-center flex-column w-50 mx-auto text-center">
-        <h5>Contactos</h5>
-        <p>Correo: franciscadalindal@gmail.com</p>
-        <p>Numero de ejemplo: 354415234356</p>
-        <p>Direccion: calle d. f. Sarmiento s/n de la localidad de Ambul</p>
+    <!-- Botón Ver más -->
+    <div class="div-con-padding justify-content-center mt-5 align-items-center flex-column d-flex">
+        <a href="<?= base_url('index.php/Proyectos') ?>" class="btn boton-gris px-5 py-2">
+            Ver más proyectos
+        </a>
     </div>
+    <button type="button" class="btn-flotante" data-bs-toggle="modal" data-bs-target="#contactoModal">
+    +
+    </button>
+    <!--Modal contacto-->
+    <div class="modal fade" id="contactoModal" tabindex="-1" aria-labelledby="miModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="miModalLabel">Título del Modal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body"> 
+                <div class=" d-flex justify-content-center align-items-center flex-column w-50 mx-auto text-center">
+                    <h5>Contactos</h5>
+                    <p>Correo: franciscadalindal@gmail.com</p>
+                    <p>Direccion: calle d. f. Sarmiento s/n de la localidad de Ambul</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
 
     <footer class="amarillo">
     <div class="d-flex justify-content-center align-items-center flex-column w-50 mx-auto text-center">
@@ -154,6 +176,7 @@
     </div>
     </footer>
     <?= view('partials/scriptScroll')?>
+    <?= view('partials/fadein')?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
   </body>
 </html>

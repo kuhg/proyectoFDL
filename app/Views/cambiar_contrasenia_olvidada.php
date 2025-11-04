@@ -9,7 +9,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../public/css/estilos.css">
+  <link rel="stylesheet" href="<?= base_url('public/css/estilos.css') ?>">
 </head>
 
 <body>
@@ -18,34 +18,47 @@
   <div class="container my-5" style="max-width: 480px;">
     <div class="card shadow-sm p-4">
       <h1 class="text-center mb-4">Cambiar contraseña</h1>
+      <?= view('partials/errores') ?>
 
-      <form id="formProyecto" method="POST" action="ruta_backend.php"
-            class="needs-validation" novalidate>
+      <?php
+      echo form_open('form/recuperarContraseniaOlvidada', ['class' => 'needs-validation', 'novalidate' => true]);
 
-        <div class="mb-3">
-          <label for="contraseniaNueva" class="form-label">Contraseña nueva</label>
-          <input type="password" class="form-control" id="contraseniaNueva"
-                 name="contraseniaNueva" autocomplete="new-password" required>
-          <div class="invalid-feedback">Este campo es obligatorio.</div>
-        </div>
+      echo '<div class="mb-3">';
+      echo form_label('Contraseña nueva:', 'contraseniaNueva', ['class' => 'form-label']);
+      echo form_password([
+        'name' => 'contraseniaNueva',
+        'id' => 'contraseniaNueva',
+        'class' => 'form-control',
+        'autocomplete' => 'new-password',
+        'required' => true
+      ]);
+      echo '<div class="invalid-feedback">Este campo es obligatorio.</div>';
+      echo '</div>';
 
-        <div class="mb-3">
-          <label for="contraseniaNuevaValidacion" class="form-label">
-            Confirmar contraseña nueva
-          </label>
-          <input type="password" class="form-control" id="contraseniaNuevaValidacion"
-                 name="contraseniaNuevaValidacion" autocomplete="new-password" required>
-          <div class="invalid-feedback">Este campo es obligatorio.</div>
-        </div>
+      echo '<div class="mb-3">';
+      echo form_label('Confirmar contraseña nueva:', 'contraseniaNuevaValidacion', ['class' => 'form-label']);
+      echo form_password([
+        'name' => 'contraseniaNuevaValidacion',
+        'id' => 'contraseniaNuevaValidacion',
+        'class' => 'form-control',
+        'autocomplete' => 'new-password',
+        'required' => true
+      ]);
+      echo '<div class="invalid-feedback">Este campo es obligatorio.</div>';
+      echo '</div>';
+      ?>
+      <input type="hidden" name="email" value="<?= esc($email) ?>">
+      <?php
+      // Botones
+      echo '<div class="d-flex gap-2 mt-3 justify-content-center">';
+      echo form_submit('submit', 'Cambiar Contraseña', ['class' => 'boton-amarillo']);
+      echo form_reset('reset', 'Limpiar', ['class' => 'boton-gris']);
+      echo '</div>';
 
-        <div class="d-flex gap-2 mt-3 justify-content-center">
-          <button class="boton-amarillo" type="submit">Cambiar Contraseña</button>
-          <button class="boton-gris" type="reset">Limpiar</button>
-        </div>
-      </form>
+      echo form_close();
+      ?>
     </div>
   </div>
-
   <?= view('partials/footer')?>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>

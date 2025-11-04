@@ -9,95 +9,107 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../public/css/estilos.css">
+  <link rel="stylesheet" href="<?= base_url('public/css/estilos.css') ?>">
+  <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 </head>
 
-<body>
+<body class="fondo-dibujo">
 <?= view('partials/navbar')?>
 
 <main>
-  <section class="container text-center my-5">
-    <h1 class="display-5 fw-semibold">Título del proyecto o noticia</h1>
-    <p class="text-muted">Fecha de publicación</p>
+  <?php $session = session(); ?>
+  <section class="container blanco-transparente text-center my-5">
+    <h1 class="display-5 fw-semibold "><?= esc($publicacion['tituloPublicacion']) ?></h1>
+    <p class="text-muted">Publicado en: <?= date('d/m/Y', strtotime($publicacion['fechaPublicacion'])) ?></p>
   </section>
 
-  <section class="container my-5">
-    <h2 class="h3 text-center mb-4">Resumen del proyecto</h2>
-    <p>
-      Este proyecto STEAM busca resolver la escasez de marcadores en la sala a través de la creación de eco-crayones caseros utilizando cera de abeja y pigmentos naturales, así como colorantes en pasta comestibles.
-      A lo largo de la experiencia, los niños y niñas de 3, 4 y 5 años explorarán conceptos de ciencia (propiedades de materiales, cambios de estado), tecnología (proceso de fabricación simple), ingeniería (diseño de moldes), arte (creación de colores y uso de crayones) y matemáticas (medición, clasificación).
-      El proyecto fomenta el consumo responsable y el cuidado del medio ambiente, alineándose con los Objetivos de Desarrollo Sostenible (ODS) y los lineamientos del diseño curricular de nivel inicial de Córdoba, promoviendo el desarrollo de capacidades a través del aprendizaje basado en problemas y la indagación.
+  <?php if ($session->has('usuario') && ($session->get('usuario')['permisos'] == 1 || $session->get('usuario')['permisos'] == 2)): ?>
+
+    <section class="container my-4">
+      <div class="d-flex gap-2 justify-content-center">
+        <div>
+          <?= form_open('form/borrarPublicacion') ?>
+            <input type="hidden" name="idPublicacion" value="<?= esc($publicacion['idPublicacion']) ?>">
+            <?= form_submit('borrar', 'Borrar', ['class' => 'boton-rojo']) ?>
+          <?= form_close() ?>
+        </div>
+        <div>
+          <?php //Editar publicacion ?>
+            <a href="<?= base_url().'index.php/EditarPublicacion/'.$publicacion['idPublicacion'] ?>" class="boton-amarillo">
+                Ver Proyecto
+            </a>
+        </div>
+      </div>
+    </section>
+  <?php endif; ?>
+
+  <section class="container blanco-transparente my-5">
+    <h2 class="h3 text-center mb-4 titulo-seccion">Resumen del proyecto</h2>
+    <p class="texto-principal">
+      <?= esc($publicacion['resumenPublicacion']) ?>  
     </p>
   </section>
 
+      <!-- Galería de imágenes -->
   <section class="container my-5">
-    <h2 class="h3 text-center mb-4">Objetivos</h2>
+    <h2 class="h3 text-center mb-4"></h2>
+  <div class="grid">
+  <div class="grid-sizer"></div>
+    <?php
+      foreach($imagenes as $img){
+        echo '<div class="grid-item">
+                <img src="'.base_url('public/'.$img['rutaImagen']).'" class="img-fluid rounded shadow-sm imagen-zoom" alt="Imagen del proyecto">
+              </div>';
+      }
+    ?>
+  </div>
+  </section>
+
+  <section class="container blanco-transparente my-5">
+    <?php 
+      $objetivos = explode('.', $publicacion['objetivosPublicacion']);
+    ?>
+    <h2 class="h3 text-center titulo-seccion mb-4">Objetivos</h2>
     <ul class=" ms-md-5">
-      <li>Fomentar la curiosidad y la indagación científica en relación con los materiales y sus transformaciones.</li>
-      <li>Desarrollar habilidades de pensamiento crítico y resolución creativa de problemas a través de una situación real.</li>
-      <li>Promover el trabajo colaborativo y la comunicación oral en las diferentes etapas del proyecto.</li>
-      <li>Sensibilizar sobre la importancia del consumo responsable, la reutilización y el cuidado del medio ambiente.</li>
-      <li>Explorar conceptos matemáticos básicos a través de la experimentación y la producción.</li>
-      <li>Estimular la expresión creativa a través de las artes visuales utilizando materiales no convencionales.</li>
-      <li>Valorar los recursos naturales y comprender el origen de algunos materiales (cera de abeja).</li>
+    <?php
+      foreach ($objetivos as $objetivo) {
+        $objetivo = trim($objetivo);
+          if ($objetivo !== '') { 
+              echo "<li>" . esc($objetivo) . "</li>";
+        }
+      }
+    ?>
     </ul>
   </section>
 
-  <!-- Galería de imágenes -->
-  <section class="container my-5">
-    <h2 class="h3 text-center mb-4">Galería</h2>
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-      <div class="col">
-        <img src="../public/img/proyecto1-1.jpg" class="img-fluid rounded shadow-sm"
-             alt="Niños trabajando en el proyecto, imagen 1">
-      </div>
-      <div class="col">
-        <img src="../public/img/proyecto1-2.jpg" class="img-fluid rounded shadow-sm"
-             alt="Niños trabajando en el proyecto, imagen 2">
-      </div>
-      <div class="col">
-        <img src="../public/img/proyecto1-3.jpg" class="img-fluid rounded shadow-sm"
-             alt="Niños trabajando en el proyecto, imagen 3">
-      </div>
-      <div class="col">
-        <img src="../public/img/proyecto1-4.jpg" class="img-fluid rounded shadow-sm"
-             alt="Niños trabajando en el proyecto, imagen 4">
-      </div>
-      <div class="col">
-        <img src="../public/img/proyecto1-5.jpg" class="img-fluid rounded shadow-sm"
-             alt="Niños trabajando en el proyecto, imagen 5">
-      </div>
-      <div class="col">
-        <img src="../public/img/proyecto1-6.jpg" class="img-fluid rounded shadow-sm"
-             alt="Niños trabajando en el proyecto, imagen 6">
-      </div>
-    </div>
-  </section>
-
   <!-- Cierre -->
-  <section class="container my-5">
-    <h2 class="h3 text-center mb-4">Conclusión</h2>
-    <p>
-      El proyecto “Nuestros colores con conciencia” permitió a los niños y niñas no solo resolver una necesidad práctica en la sala —la falta de crayones—, sino también sumergirse en una experiencia de aprendizaje profundamente significativa. 
-      Al crear sus propios útiles, desarrollaron habilidades científicas, tecnológicas, artísticas y matemáticas de manera integrada, fomentando la creatividad y el pensamiento crítico.
-      La inclusión de los principios Waldorf enriqueció la experiencia sensorial y la conexión con la naturaleza, mientras que el enfoque en los ODS los inició en la conciencia ambiental desde una edad temprana.
-      Este proyecto culminó con la valoración de los objetos hechos a mano, el respeto por los recursos naturales y la alegría de utilizar sus propios colores en sus creaciones artísticas.
-    </p>
-  </section>
-
-  <section>
-    <div class="card my-4 border-0 shadow-sm align-items-center">
-      <div class="card-body d-flex">
-          <h2 class="h3 text-center mb-4">Tienes cuenta? Inicia sesion para dejar un comentario!</h3>
-      </div>
-          <button class="boton-amarillo">Iniciar Sesion</button>
+  <section class="container blanco-transparente my-5">
+    <div class="container-fluid ">
+      <h2 class="h3 text-center titulo-seccion mb-4">Conclusión</h2>
+      <p class="texto-principal"><?= esc($publicacion['conclucionPublicacion']) ?></p>
     </div>
   </section>
-
+  <?php $session = session(); ?>
+  <?php if (!$session->has('usuario')):?>
+  <section>
+    <div class="container card my-4 border-0 shadow-sm align-items-center">
+      <div class="card-body d-flex">
+          <h2 class="h3 text-center mb-4">¿Tienes cuenta? Inicia sesion para dejar un comentario!</h3>
+      </div>
+          <?php 
+            $session->set('idPublicacion', $publicacion['idPublicacion']);
+          ?>
+          <a href="<?= base_url('index.php/IniciarSesion') ?>">
+            <button class="boton-amarillo">Iniciar Sesion</button>
+          </a>
+    </div>
+  </section>
+  <?php endif; ?>
+  
   <section class="container my-5">
     <h2 class="h3 text-center mb-4">Comentarios</h2><br>
-
-    <div class="d-flex justify-content-center mb-4">
+    <?php if ($session->has('usuario')): ?>
+    <div class="d-flex  justify-content-center mb-4">
       <button type="button"
               class="boton-amarillo"
               data-bs-toggle="modal"
@@ -105,32 +117,118 @@
         Dejar comentario
       </button>
     </div>
-<!-- Tarjeta de comentario -->
-    <div class="card my-4 border-0 shadow-sm">
-      <div class="card-body d-flex">
-        <!-- Avatar -->
-        <img src="../public/img/sample.jpg" alt="Avatar de usuario"
-            class="rounded-circle me-3"
-            style="width:60px; height:60px; object-fit:cover;">
+    <?php endif; ?>
+    <!-- Tarjeta de comentario -->
+    <?php if (!empty($comentarios)): ?>
+      <?php foreach ($comentarios as $comentario): ?>
+        <div class="blanco-transparente card my-4 border-0 shadow-sm">
+          <div class="card-body d-flex">
+            <!-- Avatar -->
+            <img src="<?= base_url('public/' . ($comentario['fotoUsuario'] ?? 'img/sample.jpg')) ?>" 
+                alt="Avatar de usuario"
+                class="rounded-circle me-3"
+                style="width:60px; height:60px; object-fit:cover;">
 
-        <div class="flex-grow-1">
-          <div class="d-flex justify-content-between align-items-start mb-1">
-            <h6 class="fw-bold mb-0">Nombre del usuario</h6>
-            <!-- Botón que abre el modal -->
-            <button type="button"
-                    class="boton-rojo btn-sm"
-                    data-bs-toggle="modal"
-                    data-bs-target="#reportModal">
-              <i class="bi bi-flag"></i> Reportar
-            </button>
+            <div class="flex-grow-1">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <h6 class="fw-bold mb-0"><?= esc($comentario['nomUsuario'].' '.$comentario['apeUsuario']) ?></h6>
+                <div class="d-flex gap-2">
+                  <!-- boton respuesta -->
+                  <?php if ($session->has('usuario')): ?>
+                    <button type="button"
+                            class="boton-verde btn-sm"
+                            data-bs-toggle="modal"
+                            data-bs-target="#respuestaModal"
+                            onclick="setComentarioIdRespuesta(<?= esc($comentario['idComentario']) ?>)">
+                      <i class="bi bi-chat-dots me-1"></i> Responder
+                    </button>
+                  <?php endif; ?>
+                  <!-- boton reporte -->
+                  <?php if ($session->has('usuario')): ?>
+                    <button type="button"
+                            class="boton-rojo btn-sm"
+                            data-bs-toggle="modal"
+                            data-bs-target="#reportModal"
+                            onclick="setComentarioId(<?= esc($comentario['idComentario']) ?>)">
+                      <i class="bi bi-flag"></i> Reportar
+                    </button>
+                  <?php endif; ?>
+                  <!-- boton borrar -->
+                  <?php $usuario = $session->get('usuario'); ?>
+                  <?php if (($session->has('usuario')) && ($usuario['permisos'] == 1 || $usuario['id'] == $comentario['idUsuario'])): ?>
+                    <?= form_open('form/borrarComentarioPublicacion', ['class' => 'm-0']) ?>
+                      <input type="hidden" name="idComentario" value="<?= esc($comentario['idComentario']) ?>">
+                      <input type="hidden" name="idPublicacion" value="<?= esc($publicacion['idPublicacion']) ?>">
+                      <button type="submit" class="boton-rojo-chico btn-sm">
+                        <i class="bi bi-slash-circle me-1"></i> Borrar
+                      </button>
+                    <?= form_close() ?>
+                  <?php endif; ?>
+                </div>
+              </div>
+
+              <p class="mb-2"><?= esc($comentario['textoComentario']) ?></p>
+              <small class="text-muted">
+                Publicado el <?= date('d/m/Y', strtotime($comentario['fechaComentario'])) ?>
+              </small>
+
+              <!-- Respuestas del comentario -->
+              <?php if (!empty($comentario['respuestas'])): ?>
+                <div class="mt-3 ms-5 border-start ps-3">
+                  <?php foreach ($comentario['respuestas'] as $respuesta): ?>
+                    <br>
+                    <div class="d-flex mb-3">
+                      <img src="<?= base_url('public/' . ($respuesta['fotoUsuario'] ?? 'img/sample.jpg')) ?>" 
+                          alt="Avatar de respuesta"
+                          class="rounded-circle me-2"
+                          style="width:45px; height:45px; object-fit:cover;">
+                      <div>
+                        <h6 class="fw-bold mb-1">
+                          <?= esc($respuesta['nomUsuario'].' '.$respuesta['apeUsuario']) ?>
+                        </h6>
+                        <p class="mb-1"><?= esc($respuesta['textoRespuesta']) ?></p>
+                        <small class="text-muted">Respuesta</small>
+                      </div>
+                      <div class="d-flex gap-2 ms-auto">
+                        <!-- boton reporte -->
+                        <?php if ($session->has('usuario')): ?>
+                          <button type="button"
+                                  class="boton-rojo btn-sm"
+                                  data-bs-toggle="modal"
+                                  data-bs-target="#reportRespuestaModal"
+                                  onclick="setRespuestaId(<?= esc($respuesta['idRespuesta']) ?>)">
+                            <i class="bi bi-flag"></i> Reportar
+                          </button>
+                        <?php endif; ?>
+                        <!-- boton borrar -->
+                        <?php $usuario = $session->get('usuario'); ?>
+                        <?php if (($session->has('usuario')) && ($usuario['permisos'] == 1 || $usuario['id'] == $comentario['idUsuario'])): ?>
+                          <?= form_open('form/borrarRespuestaPublicacion', ['class' => 'm-0']) ?>
+                            <input type="hidden" name="idRespuesta" value="<?= esc($respuesta['idRespuesta']) ?>">
+                            <input type="hidden" name="idPublicacion" value="<?= esc($publicacion['idPublicacion']) ?>">
+                            <button type="submit" class="boton-rojo-chico btn-sm">
+                              <i class="bi bi-slash-circle me-1"></i> Borrar
+                            </button>
+                          <?= form_close() ?>
+                        <?php endif; ?>
+                      </div>
+                    </div>
+                  <?php endforeach; ?>
+                </div>
+              <?php endif; ?>
+              <!-- Fin de respuestas -->
+            </div>
           </div>
-          <p class="mb-2">
-            Este es un comentario de ejemplo sobre la publicación.
-          </p>
-          <small class="text-muted">Publicado el 17/09/2025</small>
         </div>
+      <?php endforeach; ?>
+
+      <div class="d-flex justify-content-center mt-4">
+        <?= $pager->links('comentarios', 'default_full') ?>
       </div>
-    </div>
+
+    <?php else: ?>
+      <p class="text-center text-muted">Aún no hay comentarios para esta publicación.</p>
+    <?php endif; ?>
   </section>
 
 <!-- Modal comentario-->
@@ -142,73 +240,223 @@
         <h5 class="modal-title fw-bold" id="comentarioModalLabel">Nuevo comentario</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
+      <?php 
+        echo form_open('form/comentario', ['class'=>'needs-validation', 'novalidate'=>true]); 
+        ?>
+        <input type="hidden" name="idPublicacion" value="<?= esc($publicacion['idPublicacion']) ?>">
 
-      <form id="formComentario" method="POST" action="ruta_backend_comentario.php" class="needs-validation" novalidate>
         <div class="modal-body">
-          <div class="mb-3">
-            <label for="comentarioTexto" class="form-label">Escriba su comentario</label>
-            <textarea class="form-control" id="comentarioTexto" name="comentario" rows="4" required></textarea>
-            <div class="invalid-feedback">El comentario no puede estar vacío.</div>
-          </div>
+          <?php 
+            echo form_label('Escriba su comentario', 'comentarioTexto');
+            echo form_textarea([
+              'name' => 'comentario',
+              'id' => 'comentarioTexto',
+              'rows' => 4,
+              'class' => 'form-control',
+              'required' => 'required'
+            ]);
+          ?>
+          <div class="invalid-feedback">El comentario no puede estar vacío.</div>
         </div>
 
         <div class="modal-footer">
           <button type="button" class="boton-gris" data-bs-dismiss="modal">Cancelar</button>
-          <button type="submit" class="boton-amarillo">Comentar</button>
+          <?php echo form_submit('submit', 'Comentar', ['class'=>'boton-amarillo']); ?>
+          <?php echo form_close(); ?>
         </div>
-      </form>
     </div>
   </div>
 </div>
 
-<!-- Modal reporte-->
-<div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <form id="reportForm">
-        <div class="modal-header">
-          <h5 class="modal-title" id="reportModalLabel">
-            Reportar comentario
-          </h5>
+  <!--Modal respuesta-->
+
+  <div class="modal fade" id="respuestaModal" tabindex="-1" aria-labelledby="respuestaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow">
+        <div class="modal-header bg-warning-subtle">
+          <h5 class="modal-title fw-bold" id="respuestaModalLabel">Responder comentario</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
+        <?php 
+          echo form_open('form/respuesta', ['class'=>'needs-validation', 'novalidate'=>true]); 
+          ?>
+          <input type="hidden" name="idComentarioRespuesta" id="idComentarioRespuesta" value="">
+          <input type="hidden" name="idPublicacion" value="<?= esc($publicacion['idPublicacion']) ?>">
 
-        <div class="modal-body">
-          <p class="mb-3">Selecciona el motivo del reporte:</p>
-
-          <!-- Motivos -->
-          <div class="mb-3">
-            <label for="reportReason" class="form-label">Motivo</label>
-            <select class="form-select" id="reportReason" name="reason" required>
-              <option value="" selected disabled>Elige una opción...</option>
-              <option value="spam">Spam o publicidad no deseada</option>
-              <option value="abuso">Lenguaje ofensivo o abusivo</option>
-              <option value="informacion_falsa">Información falsa o engañosa</option>
-              <option value="contenido_inapropiado">Contenido inapropiado</option>
-              <option value="otro">Otro</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="reportDetails" class="form-label">Detalles (opcional)</label>
-            <textarea class="form-control" id="reportDetails" name="details" rows="3"
-                      placeholder="Agrega más información si lo deseas..."></textarea>
+          <div class="modal-body">
+            <?php 
+              echo form_label('Escriba su respuesta', 'respuestaTexto');
+              echo form_textarea([
+                'name' => 'respuesta',
+                'id' => 'respuestaTexto',
+                'rows' => 4,
+                'class' => 'form-control',
+                'required' => 'required'
+              ]);
+            ?>
+            <div class="invalid-feedback">La respuesta no puede estar vacía.</div>
           </div>
 
-          <!-- ID del comentario -->
-          <input type="hidden" name="comment_id" value="123">
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-danger">Enviar reporte</button>
-        </div>
-      </form>
+          <div class="modal-footer">
+            <button type="button" class="boton-gris" data-bs-dismiss="modal">Cancelar</button>
+            <?php echo form_submit('submit', 'Responder', ['class'=>'boton-amarillo']); ?>
+            <?php echo form_close(); ?>
+          </div>
+      </div>
     </div>
   </div>
-</div>
+
+  <!-- Modal reporte-->
+  <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <?php echo form_open('form/reporte', ['id' => 'reportForm', 'class' => 'needs-validation', 'novalidate' => true]); ?>
+          <div class="modal-header">
+            <h5 class="modal-title" id="reportModalLabel">Reportar comentario</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+
+          <div class="modal-body">
+            <p class="mb-3">Selecciona el motivo del reporte:</p>
+            <input type="hidden" name="idComentario" id="idComentarioReporte" value="">
+            <input type="hidden" name="idPublicacion" value="<?= esc($publicacion['idPublicacion']) ?>">
+
+            <!-- Motivos -->
+            <div class="mb-3">
+              <?php
+                echo form_label('Motivo: ', 'razonReporte');
+                echo form_dropdown(
+                  'razon',
+                  [
+                    'spam' => 'Spam o publicidad no deseada',
+                    'abuso' => 'Lenguaje ofensivo o abusivo',
+                    'informacion_falsa' => 'Información falsa o engañosa',
+                    'contenido_inapropiado' => 'Contenido inapropiado',
+                    'otro' => 'Otro'
+                  ],
+                  '',
+                  [
+                    'id' => 'razonReporte',
+                    'class' => 'form-select',
+                    'required' => 'required'
+                  ]
+                );
+              ?>
+            </div>
+
+            <div class="mb-3">
+              <?php 
+                echo form_label('Detalles (Opcional)', 'detallesReporte');
+                echo form_textarea([
+                  'name' => 'detalles',
+                  'id' => 'detallesReporte',
+                  'rows' => 3,
+                  'class' => 'form-control'
+                ]);
+              ?>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="boton-gris" data-bs-dismiss="modal">Cancelar</button>
+            <?php echo form_submit('enviar', 'Enviar Reporte', ['class' => 'boton-amarillo']); ?>
+          </div>
+        <?php echo form_close(); ?>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal reporte de respuesta -->
+  <div class="modal fade" id="reportRespuestaModal" tabindex="-1" aria-labelledby="reportRespuestaModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <?php echo form_open('form/reporteRespuesta', ['id' => 'reportForm', 'class' => 'needs-validation', 'novalidate' => true]); ?>
+          <div class="modal-header">
+            <h5 class="modal-title" id="reportRespuestaModalLabel">Reportar respuesta</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+
+          <div class="modal-body">
+            <p class="mb-3">Selecciona el motivo del reporte:</p>
+            <input type="hidden" name="idRespuesta" id="idRespuestaReporte" value="">
+            <input type="hidden" name="idPublicacion" value="<?= esc($publicacion['idPublicacion']) ?>">
+
+            <!-- Motivos -->
+            <div class="mb-3">
+              <?php
+                echo form_label('Motivo: ', 'razonReporte');
+                echo form_dropdown(
+                  'razon',
+                  [
+                    'spam' => 'Spam o publicidad no deseada',
+                    'abuso' => 'Lenguaje ofensivo o abusivo',
+                    'informacion_falsa' => 'Información falsa o engañosa',
+                    'contenido_inapropiado' => 'Contenido inapropiado',
+                    'otro' => 'Otro'
+                  ],
+                  '',
+                  [
+                    'id' => 'razonReporte',
+                    'class' => 'form-select',
+                    'required' => 'required'
+                  ]
+                );
+              ?>
+            </div>
+
+            <div class="mb-3">
+              <?php 
+                echo form_label('Detalles (Opcional)', 'detallesReporte');
+                echo form_textarea([
+                  'name' => 'detalles',
+                  'id' => 'detallesReporte',
+                  'rows' => 3,
+                  'class' => 'form-control'
+                ]);
+              ?>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="boton-gris" data-bs-dismiss="modal">Cancelar</button>
+            <?php echo form_submit('enviar', 'Enviar Reporte', ['class' => 'boton-amarillo']); ?>
+          </div>
+        <?php echo form_close(); ?>
+      </div>
+    </div>
+  </div>
 </main>
   <?= view('partials/footer')?>
   <?= view('partials/scriptValidacion')?>
+  <script>
+    function setComentarioId(comentarioId) {
+      document.getElementById('idComentarioReporte').value = comentarioId;
+    }
+    function setComentarioIdRespuesta(comentarioId) {
+      document.getElementById('idComentarioRespuesta').value = comentarioId;
+    }
+    function setRespuestaId(respuestaId) {
+      const input = document.querySelector('#reportRespuestaModal input[name="idRespuesta"]');
+      if (input) input.value = respuestaId;
+    }
+  </script>
+  <?= view('partials/fadein')?>
+  <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+  <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var grid = document.querySelector('.grid');
+
+    // Esperar a que las imágenes carguen
+    imagesLoaded(grid, function() {
+      new Masonry(grid, {
+        itemSelector: '.grid-item',
+        columnWidth: '.grid-sizer',
+        percentPosition: true,
+        gutter: 15
+      });
+    });
+  });
+  </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

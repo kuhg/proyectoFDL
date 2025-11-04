@@ -14,31 +14,50 @@
 
 <body>
 <?= view('partials/navbar')?>
-  <div class="container my-5 w-50">
+  <div class="container my-5 w-25">
     <h1 class="text-center mb-4">Iniciar sesion</h1>
 
-    <form id="formProyecto" enctype="multipart/form-data" method="POST" action="ruta_backend.php" class="needs-validation" novalidate>
-      <!-- Título -->
-      <div class="mb-3">
-        <label for="documentoUsuario" class="form-label">Documento del Usuario</label>
-        <input type="text" class="form-control" id="documentoUsuario" name="documentoUsuario" required>
-        <div class="invalid-feedback">Esta casilla esta vacia</div>
-      </div>
-      
-      <div class="mb-3">
-        <label for="contraseniaUsuario" class="form-label">Contraseña</label>
-        <input type="password" class="form-control" id="contraseniaUsuario" name="contraseniaUsuario" required>
-        <div class="invalid-feedback">Esta casilla esta vacia</div>
-      </div>
+    <?= view('partials/errores')?>
+    <?= 
+    form_open('form/iniciarSesion', [
+        'id' => 'formProyecto',
+        'enctype' => 'multipart/form-data',
+        'class' => 'needs-validation',
+        'novalidate' => true
+    ]);
 
-      <!-- Botones -->
-      <div class="d-flex gap-2 mt-3 justify-content-center">
-        <button class="boton-amarillo" type="submit">Iniciar sesion</button>
-        <button class="boton-gris" type="reset">Limpiar</button>
-      </div>
-    </form><br>
-    <div class="d-grid gap-2">
-     <a href="">Olvide mi contraseña</a>
+    // Documento del usuario
+    echo form_label('Documento del Usuario: ', 'documentoUsuario');
+    echo form_input([
+        'type' => 'text',
+        'name' => 'documento',
+        'id' => 'documento',
+        'class' => 'form-control',
+        'required' => true
+    ]);
+    echo '<div class="invalid-feedback">Esta casilla está vacía</div><br>';
+
+    // Contraseña
+    echo form_label('Contraseña: ', 'contrasenia');
+    echo form_password([
+        'name' => 'contrasenia',
+        'id' => 'contrasenia',
+        'class' => 'form-control',
+        'required' => true
+    ]);
+    echo '<div class="invalid-feedback">Esta casilla está vacía</div><br>';
+
+    // Botones
+    echo '<div class="d-flex gap-2 mt-3 justify-content-center">';
+    echo form_submit('enviar', 'Iniciar sesión', ['class' => 'boton-amarillo']);
+    echo form_reset('reset', 'Limpiar', ['class' => 'boton-gris']);
+    echo '</div>';
+
+    echo form_close();
+    ?>
+    <br>
+    <div class="d-grid justify-content-center gap-2">
+     <a href="<?= base_url('index.php/RecuperarContrasenia') ?>">Olvide mi contraseña</a>
     </div>
   </div>
 

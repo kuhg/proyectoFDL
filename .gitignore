@@ -1,0 +1,6 @@
+writable/*
+public/uploads/*
+public/fotosPerfil/*
+fotosPerfil/*
+*.log
+*.json
