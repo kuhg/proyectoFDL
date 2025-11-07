@@ -64,12 +64,12 @@
               <?php if (!empty($imagenes[$pub['idPublicacion']])): //si no es null carga imagen?>
                 <img 
                   src="<?= base_url('public/'.$imagenes[$pub['idPublicacion']]['rutaImagen']) ?>" 
-                  class="img-fluid rounded-start h-100 object-fit-cover" 
+                  class="img-fluid rounded-start imagen-ajustada object-fit-cover" 
                   alt="<?= esc($pub['tituloPublicacion']) ?>">
               <?php else: //si es null carga sample?>
                 <img 
                   src="<?= base_url('public/img/sample.jpg') ?>" 
-                  class="img-fluid rounded-start h-100 object-fit-cover" 
+                  class="img-fluid rounded-start imagen-ajustada object-fit-cover" 
                   alt="Sin imagen">
               <?php endif; ?>
             </div>
@@ -89,10 +89,10 @@
             </div>
           </div>
         </div>
+      <?php endforeach; ?>
         <div class="d-flex justify-content-center my-4">
             <?php $pager->links() ?> 
         </div>
-      <?php endforeach; ?>
     <?php else: ?>
       <p class="text-center mt-5">No hay proyectos disponibles por el momento.</p>
     <?php endif; ?>

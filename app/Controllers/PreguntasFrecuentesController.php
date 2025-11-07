@@ -39,4 +39,14 @@ class PreguntasFrecuentesController extends BaseController
         $preguntaFrecuente->update($id,['estadoFaq'=>0]);
         return redirect()->to(site_url('PreguntasFrecuentes'));
     }
+
+    public function editarPregunta(){
+        $preguntaFrecuente = new PreguntaFrecuenteModel();
+        $id = $this->request->getPost('idFaq');
+        $preguntaFrecuente->update($id,[
+            'pregunta'=>$this->request->getPost('pregunta'),
+            'respuesta'=> $this->request->getPost('respuesta')
+        ]);
+        return redirect()->to(site_url('PreguntasFrecuentes'));
+    }
 }

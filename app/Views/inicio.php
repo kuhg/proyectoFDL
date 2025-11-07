@@ -106,10 +106,10 @@
                 <?php if (!empty($publicaciones)): ?>
                     <?php foreach ($publicaciones as $publicacion): ?>
                         <div class="col-md-3 d-flex">
-                            <div class="card h-100">
+                            <div class="card w-100 h-100">
                                 <?php if (!empty($imagenes[$publicacion['idPublicacion']]['rutaImagen'])): ?>
                                     <img src="<?= base_url( 'public/'.esc($imagenes[$publicacion['idPublicacion']]['rutaImagen'])) ?>" 
-                                        class="card-img-top object-fit-cover" 
+                                        class="card-img-top imagen-ajustada object-fit-cover" 
                                         alt="<?= esc($publicacion['tituloPublicacion']) ?>">
                                 <?php else: ?>
                                     <img src="<?= base_url('public/img/sample.jpeg')?>" 

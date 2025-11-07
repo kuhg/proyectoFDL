@@ -23,7 +23,7 @@ class SobreNosotrosController extends BaseController
     public function editarInformacion(){
         $titulo = $this->request->getPost('titulo');
         $contenido = $this->request->getPost('contenido');
-
+        
         $data = [
             'titulo' => $titulo,
             'contenido' => $contenido

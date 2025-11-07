@@ -11,23 +11,24 @@
 </head>
   <body class="fondo-dibujo">
     <?= view('partials/navbar')?>
-    <div class="blanco-transparente div-con-padding d-flex justify-content-center align-items-center flex-column w-50 mx-auto text-center my-5">
-        <h5>Jardin de infantes</h5>
-        <h1 class="fw-bold">Francisca Dalinda López</h1>
+    <div class="div-con-padding d-flex justify-content-center align-items-center flex-column w-50 mx-auto text-center my-5 fs-3" style="font-size: 200%;">
+      <h5 class="fs-1">Jardin de infantes</h5>
+      <h1 class="fw-bold fs-1">Francisca Dalinda López</h1>
     </div>
     
-    <div class="div-con-padding w-75 align-items-center flex-column justify-content-center mx-auto d-flex">
+    <div class="w-75 align-items-center flex-column justify-content-center mx-auto d-flex">
       <div class="card" style="width: 75rem;">
         <img src="../public/img/imagenJardin5.jpg" class="card-img-top" alt="...">
       </div>
       <br><br>
-      <div class="blanco-transparente div-con-padding mx-auto  quienes-somos">
+      <div class="blanco-transparente div-con-padding mx-auto quienes-somos">
             <?php 
             $session = session();
             $usuario = $session->get('usuario'); 
             ?>
-
-            <h2>Quienes somos</h2>
+            <div class="justify-content-center d-flex mb-3">
+              <h2>Quienes somos</h2>
+            </div>
             <?php if ($usuario && ($usuario['permisos'] == 1 || $usuario['permisos'] == 3)): ?>
               <div class="justify-content-center d-flex mb-3">
                 <button type="button" class="boton-amarillo" data-bs-toggle="modal" data-bs-target="#editarModal">

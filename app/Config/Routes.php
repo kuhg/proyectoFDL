@@ -17,6 +17,7 @@ $routes->post('form/editarInformacion','SobreNosotrosController::editarInformaci
 $routes->get('PreguntasFrecuentes', 'PreguntasFrecuentesController::index');
 $routes->post('form/agregarPregunta','PreguntasFrecuentesController::agregarPregunta');
 $routes->post('form/eliminarPregunta','PreguntasFrecuentesController::eliminarPregunta');
+$routes->post('form/editarPregunta','PreguntasFrecuentesController::editarPregunta');
 
 //pagina error
 $routes->get('PaginaError','PaginaErrorController::index');
