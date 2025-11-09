@@ -10,10 +10,10 @@ class CrearUsuarioController extends BaseController
     }
     public function index()
     {
-        $session = session();
-        if($session->has('usuario') && (!$session->get('usuario')['permisos'] == 1)){
-            return redirect()->to(base_url('index.php/Error'));
-        }
+        //$session = session();
+        //if($session->has('usuario') && (!$session->get('usuario')['permisos'] == 1)){
+            //return redirect()->to(base_url('index.php/Error'));
+        //}
         return view('crear_usuario');
     }
 
