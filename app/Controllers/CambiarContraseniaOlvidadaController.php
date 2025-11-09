@@ -36,8 +36,6 @@ class CambiarContraseniaOlvidadaController extends BaseController
 
     public function actualizarContrasenia(){
         $email = $this->request->getPost('email');
-        $contraseniaNueva = $this->request->getPost('contraseniaNueva');
-        $contraseniaNuevaValidacion = $this->request->getPost('contraseniaNuevaValidacion');
 
         $validation = service('validation');
 
