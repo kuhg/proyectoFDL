@@ -13,6 +13,9 @@
 
 <?= view('partials/navbar')?>
 
+    <div class="d-flex align-items-center">
+        <?= view('partials/notificacionInicio')?>
+    </div>
 
   <main class="container d-flex align-items-center justify-content-center" style="min-height: 80vh;">
     <div class="card shadow-sm p-4 w-100" style="max-width: 420px;">

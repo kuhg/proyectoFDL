@@ -91,7 +91,7 @@
         </div>
       <?php endforeach; ?>
         <div class="d-flex justify-content-center my-4">
-            <?php $pager->links() ?> 
+            <?= $pager->links() ?> 
         </div>
     <?php else: ?>
       <p class="text-center mt-5">No hay proyectos disponibles por el momento.</p>

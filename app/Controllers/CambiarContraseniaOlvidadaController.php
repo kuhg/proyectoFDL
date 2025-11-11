@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\UsuarioModel;
+use App\Models\ContraseniaResetModel;
 use CodeIgniter\I18n\Time;
 
 class CambiarContraseniaOlvidadaController extends BaseController
@@ -16,25 +17,25 @@ class CambiarContraseniaOlvidadaController extends BaseController
             return redirect()->to(base_url('index.php'))->with('error', 'Token no proporcionado.');
         }
 
-        $db = \Config\Database::connect();
-        $builder = $db->table('contrasenia_reset');
-        $reset = $builder->where('token', $token)->get()->getRow();
+        $resetModel = new ContraseniaResetModel();
+
+        $reset = $resetModel->where('token', $token)->first();
 
         if (!$reset) {
             return redirect()->to(base_url('index.php'))->with('error', 'Token inválido.');
         }
 
-        $creado = new \CodeIgniter\I18n\Time($reset->creado);
+        $creado = new \CodeIgniter\I18n\Time($reset['creado']);
         $ahora = \CodeIgniter\I18n\Time::now();
 
         if ($ahora->getTimestamp() - $creado->getTimestamp() > 3600) {
             return redirect()->to(base_url('index.php'))->with('error', 'El enlace ha expirado.');
         }
 
-        return view('cambiar_contrasenia_olvidada', ['email' => $reset->email]);
+        return view('cambiar_contrasenia_olvidada', ['email' => $reset['email']]);
     }
-
-    public function actualizarContrasenia(){
+    public function actualizarContrasenia()
+    {
         $email = $this->request->getPost('email');
 
         $validation = service('validation');
@@ -53,19 +54,27 @@ class CambiarContraseniaOlvidadaController extends BaseController
             ]
         ]);
 
-
         if (!$validation->withRequest($this->request)->run()) {
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
         }
 
-        $password = password_hash($this->request->getPost('contraseniaNueva'),PASSWORD_DEFAULT);
+        
+        $password = password_hash($this->request->getPost('contraseniaNueva'), PASSWORD_DEFAULT);
 
+        
         $usuarioModel = new UsuarioModel();
-        $usuarioModel->set('contraseniaUsuario',$password)->where('correoUsuario',$email)->update();
+        $usuario = $usuarioModel->where('correoUsuario', $email)->first();
 
-        $db= \Config\Database::connect();
-        $db->table('contrasenia_reset')->where('email',$email)->delete();
+        if (!$usuario) {
+            return redirect()->back()->with('error', 'Usuario no encontrado.');
+        }
 
-        return redirect()->to(base_url('index.php/Index'));
+        $usuarioModel->update($usuario['idUsuario'], ['contraseniaUsuario' => $password]);
+
+        $resetModel = new ContraseniaResetModel();
+        $resetModel->where('email', $email)->delete();
+
+        return redirect()->to(base_url('index.php/Index'))->with('success', 'Contraseña actualizada correctamente.');
+
     }
 }

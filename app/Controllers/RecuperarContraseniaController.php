@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\ContraseniaResetModel;
 use App\Models\UsuarioModel;
 use CodeIgniter\I18n\Time;
 use Config\Services;
@@ -24,11 +25,9 @@ class RecuperarContraseniaController extends BaseController
             return redirect()->back()->with('error','No existe una cuenta con ese correo');
         }
         //generamos token
-
+        $contraseniaReset = new ContraseniaResetModel();
         $token = bin2hex(random_bytes(32));
-        $db = \Config\Database::connect();
-        $builder = $db->table('contrasenia_reset');
-        $builder->insert([
+        $contraseniaReset->save([
             'email'=>$email,
             'token'=>$token,
             'creado'=>Time::now()

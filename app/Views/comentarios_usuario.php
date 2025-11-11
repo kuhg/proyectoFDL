@@ -81,6 +81,9 @@
               </li>
             <?php endforeach; ?>
           </ul>
+          <div class="d-flex justify-content-center my-4">
+            <?= $pager->links() ?>
+          </div>
           <?php else: ?>
             <p class="text-center text-muted">Este usuario aún no ha realizado comentarios.</p>
           <?php endif; ?>

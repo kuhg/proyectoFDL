@@ -15,6 +15,9 @@
         <h5>Jardin de infantes</h5>
         <h1 class="fw-bold">Francisca Dalinda López</h1>
     </div>
+    <div class="d-flex align-items-center">
+        <?= view('partials/notificacionInicio')?>
+    </div>
     <div id="carouselExampleCaptions" class=" div-con-padding carousel slide w-75 mx-auto rounded-2">
     <div class="carousel-indicators">
         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -140,7 +143,7 @@
 
     <!-- Botón Ver más -->
     <div class="div-con-padding justify-content-center mt-5 align-items-center flex-column d-flex">
-        <a href="<?= base_url('index.php/Proyectos') ?>" class="btn boton-gris px-5 py-2">
+        <a href="<?= base_url('index.php/Proyectos') ?>" class="btn boton-amarillo px-5 py-2">
             Ver más proyectos
         </a>
     </div>

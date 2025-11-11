@@ -20,21 +20,24 @@ class ComentariosUsuarioController extends BaseController
 
         // Obtener información del usuario
         $usuario = $usuarioModel->find($id);
+        $comentarioModel = new ComentarioModel();
 
         if (!$usuario) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('Usuario no encontrado');
         }
 
         // Obtener los comentarios del usuario
-        $builder = $usuarioModel->builder();
-        $builder->select('comentarios.idComentario, comentarios.textoComentario, comentarios.fechaComentario, comentarios.estadoComentario');
-        $builder->join('comentarios', 'comentarios.idUsuario = usuarios.idUsuario');
-        $builder->where('usuarios.idUsuario', $id);
-        $comentarios = $builder->get()->getResultArray();
+        $comentarios = $comentarioModel
+            ->where('idUsuario', $id)
+            ->orderBy('fechaComentario', 'DESC')
+            ->paginate(5); 
+
+        $pager = $comentarioModel->pager;
 
         $data = [
             'usuario' => $usuario,
-            'comentarios' => $comentarios
+            'comentarios' => $comentarios,
+            'pager'=>$pager
         ];
 
         return view('comentarios_usuario', $data);
