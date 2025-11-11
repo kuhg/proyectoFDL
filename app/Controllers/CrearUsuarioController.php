@@ -75,6 +75,20 @@ class CrearUsuarioController extends BaseController
         }
 
         $usuarioModel = new UsuarioModel();
+
+        $correo = $this->request->getPost('correoUsuario');
+        $documento = $this->request->getPost('documentoUsuario');
+
+        $correoExiste = $usuarioModel->where('correoUsuario', $correo)->first();
+        $documentoExiste = $usuarioModel->where('docUsuario', $documento)->first();
+
+        if ($correoExiste) {
+            return redirect()->back()->withInput()->with('error', 'El correo ya está registrado.');
+        }
+
+        if ($documentoExiste) {
+            return redirect()->back()->withInput()->with('error', 'El documento ya está registrado.');
+        }
         
         $usuarioModel->save([
             'nomUsuario'=>$this->request->getPost('nombreUsuario'),
